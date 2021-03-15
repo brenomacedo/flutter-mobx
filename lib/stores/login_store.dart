@@ -24,4 +24,7 @@ abstract class _LoginStore with Store {
   @action
   void setPassword(String value) => password = value;
 
+  @computed
+  bool get isFormValid => email.length > 6 && password.length > 6;
+
 }

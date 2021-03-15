@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:todomobx/stores/login_store.dart';
 import 'package:todomobx/widgets/custom_icon_button.dart';
 import 'package:todomobx/widgets/custom_text_field.dart';
@@ -57,27 +58,31 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 16,),
                     SizedBox(
                       height: 44,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32),
-                            ),
-                          ),
-                          backgroundColor: MaterialStateProperty.resolveWith((states) {
-                            if(states.contains(MaterialState.disabled))
-                              return Theme.of(context).primaryColor.withAlpha(100);
+                      child: Observer(
+                        builder: (context) {
+                          return ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(32),
+                                ),
+                              ),
+                              backgroundColor: MaterialStateProperty.resolveWith((states) {
+                                if(states.contains(MaterialState.disabled))
+                                  return Theme.of(context).primaryColor.withAlpha(100);
 
-                            return Theme.of(context).primaryColor;
-                          })
-                        ),
-                        child: Text('Login', style: TextStyle(color: Colors.white)),
-                        onPressed: (){
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context)=>ListScreen())
+                                return Theme.of(context).primaryColor;
+                              })
+                            ),
+                            child: Text('Login', style: TextStyle(color: Colors.white)),
+                            onPressed: loginStore.isFormValid ? (){
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(builder: (context)=>ListScreen())
+                              );
+                            } : null,
                           );
                         },
-                      ),
+                      )
                     )
                   ],
                 ),
