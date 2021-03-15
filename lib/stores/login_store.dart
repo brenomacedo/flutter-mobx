@@ -33,4 +33,18 @@ abstract class _LoginStore with Store {
   @action
   void toggleIsVisible() => isVisible = !isVisible;
 
+  @observable
+  bool loading = false;
+
+  @action
+  Future<void> login() async {
+    loading = true;
+    await Future.delayed(Duration(seconds: 2));
+    loading = false;
+  }
+
+  @computed
+  Function get loginPressed =>
+    isFormValid && !loading ? login : null;
+
 }
