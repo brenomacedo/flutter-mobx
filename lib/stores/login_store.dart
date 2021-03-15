@@ -47,4 +47,9 @@ abstract class _LoginStore with Store {
   @observable
   bool loggedIn = false;
 
+  @action
+  void logout() {
+    loggedIn = false;
+  }
+
 }

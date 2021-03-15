@@ -23,7 +23,6 @@ abstract class _ListStore with Store {
   @action
   void addTodo() {
     todoList.insert(0, TodoStore(newTodoTitle));
-    
   }
 
 }
