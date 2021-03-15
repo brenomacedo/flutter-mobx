@@ -6,11 +6,7 @@ class LoginStore = _LoginStore with _$LoginStore;
 
 abstract class _LoginStore with Store {
 
-  _LoginStore() {
-    autorun((_) {
-      print(email);
-    });
-  }
+  _LoginStore();
 
   @observable
   String email = '';
@@ -41,10 +37,14 @@ abstract class _LoginStore with Store {
     loading = true;
     await Future.delayed(Duration(seconds: 2));
     loading = false;
+    loggedIn = true;
   }
 
   @computed
   Function get loginPressed =>
     isFormValid && !loading ? login : null;
+
+  @observable
+  bool loggedIn = false;
 
 }
