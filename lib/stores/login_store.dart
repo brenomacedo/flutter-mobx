@@ -27,4 +27,10 @@ abstract class _LoginStore with Store {
   @computed
   bool get isFormValid => email.length > 6 && password.length > 6;
 
+  @observable
+  bool isVisible = false;
+
+  @action
+  void toggleIsVisible() => isVisible = !isVisible;
+
 }
